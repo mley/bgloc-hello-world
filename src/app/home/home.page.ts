@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {interval, Observable, Subject} from "rxjs";
+import {GpsLocation, LocationService} from "./location.service";
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
 
+  protected location: Observable<GpsLocation> | undefined;
+
+  constructor(
+      private readonly locationService: LocationService,
+  ) {}
+
+  public async init(): Promise<void> {
+    await this.locationService.initialize();
+  }
+
+  public startLocationTracking(): void {
+    this.location = this.locationService.startLocationTracking()
+  }
 }

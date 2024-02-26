@@ -1,5 +1,7 @@
 {
   "name": "bgloc-hello-world",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
