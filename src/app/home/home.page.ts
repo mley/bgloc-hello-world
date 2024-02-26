@@ -9,7 +9,8 @@ import {GpsLocation, LocationService} from "./location.service";
 })
 export class HomePage {
 
-
+  private error$ = new Subject<string>();
+ protected error: Observable<string> = this.error$.asObservable();
   protected location: Observable<GpsLocation> | undefined;
 
   constructor(
@@ -17,7 +18,11 @@ export class HomePage {
   ) {}
 
   public async init(): Promise<void> {
-    await this.locationService.initialize();
+    try {
+      await this.locationService.initialize();
+    } catch (e) {
+      this.error$.next(`${e}`);
+    }
   }
 
   public startLocationTracking(): void {
