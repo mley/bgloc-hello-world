@@ -14,11 +14,19 @@
     </ion-header>
 
     <div id="container">
-        <ion-button (click)="init()">Init</ion-button>
-        <ion-button (click)="startLocationTracking()">Start</ion-button>
-        <p *ngIf="(location | async) as loc ">{{ loc.latitude }} {{ loc.longitude }}</p>
-        <pre *ngIf="(error |async) as e">
-            {{e}}
-        </pre>
+        <ion-button (click)="ready()">ready</ion-button>
+        <ion-button (click)="requestPermissions()">requestPermissions</ion-button>
+        <ion-button (click)="start()">start</ion-button>
+        <ion-button (click)="getCurrentPosition()">getCurrentPosition</ion-button>
+
+           <ion-card *ngFor="let e of (log$ |async)">
+               <ion-card-header>
+                   <ion-card-title>{{e.type}}</ion-card-title>
+               </ion-card-header>
+               <ion-card-content>
+                   <pre>{{e.message}}</pre>
+               </ion-card-content>
+           </ion-card>
+
     </div>
 </ion-content>
